@@ -6,7 +6,16 @@
 '''
 # import statements
 import pybullet as p
+import time
 
-# physics engine setup
+# physics engine init
 physicsClient = p.connect(p.GUI)
+
+# step through the world
+for x in range(1000):
+    p.stepSimulation()
+    print(x)
+    time.sleep(.005)
+
+# physics engine disconnect
 p.disconnect
