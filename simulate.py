@@ -11,6 +11,9 @@ import time
 # physics engine init
 physicsClient = p.connect(p.GUI)
 
+# load in the box
+p.loadSDF("box.sdf")
+
 # step through the world
 for x in range(1000):
     p.stepSimulation()
