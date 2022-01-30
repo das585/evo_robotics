@@ -6,19 +6,29 @@
 '''
 # import statements
 import pybullet as p
+import pybullet_data
 import time
 
 # physics engine init
 physicsClient = p.connect(p.GUI)
 
+# add pybullet data path to be usable
+p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+# set the gravity in the world
+p.setGravity(0, 0,-9.8)
+
+# create the floor
+planeID = p.loadURDF("plane.urdf")
+
 # load in the box
-p.loadSDF("box.sdf")
+p.loadSDF("boxes.sdf")
 
 # step through the world
 for x in range(1000):
     p.stepSimulation()
     print(x)
-    time.sleep(.005)
+    time.sleep(.008)
 
 # physics engine disconnect
 p.disconnect

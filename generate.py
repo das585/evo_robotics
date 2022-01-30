@@ -8,9 +8,19 @@
 import pyrosim.pyrosim as pyrosim
 
 # start the simulation
-pyrosim.Start_SDF("box.sdf")
+pyrosim.Start_SDF("boxes.sdf")
 
-pyrosim.Send_Cube(name = "Box", pos = [0, 0, 0.5], size = [1, 1, 1])
+# set the dimention variables
+length = 1
+width = 1
+height = 1
 
+# generate box
+pyrosim.Send_Cube(name = "Box", pos = [0, 0, .5], size = [width, length, height])
+
+# box 2
+pyrosim.Send_Cube(name = "Box2", pos = [0, 0, .5], size = [width, length, height])
+
+# terminate program
 pyrosim.End()
 
