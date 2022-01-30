@@ -21,8 +21,11 @@ p.setGravity(0, 0,-9.8)
 # create the floor
 planeID = p.loadURDF("plane.urdf")
 
+# load the robot
+robotID = p.loadURDF("body.urdf")
+
 # load in the box
-p.loadSDF("boxes.sdf")
+p.loadSDF("world.sdf")
 
 # step through the world
 for x in range(1000):

@@ -7,26 +7,48 @@
 # import statements
 import pyrosim.pyrosim as pyrosim
 
-# start the simulation
-pyrosim.Start_SDF("boxes.sdf")
+# main calls to other functions
+def main():
+	Create_World()
+	Create_Robot()
 
-# set the dimention variables
-length = 1
-width = 1
-height = 1
+# creates the world sdf for use in simulate.py
+def Create_World():
 
-# generate box
-#pyrosim.Send_Cube(name = "Box", pos = [0, 0, .5], size = [width, length, height])
+	# start sdf creation
+	pyrosim.Start_SDF("world.sdf")
 
-# box tower
+	# terminate the creation
+	pyrosim.End()
 
-for x in range(5):
-    for y in range(5):
-        blockSize = 1
-        for z in range(10):
-            pyrosim.Send_Cube(name = "Box2", pos = [x, y, (.5 + z)], size = [blockSize, blockSize, blockSize])
-            blockSize *= .9
+# creates the body and mind of the robot	
+def Create_Robot():
+	
+	# start urdf creation
+	pyrosim.Start_URDF("body.urdf")
+	
+	# set the dimention variables
+	length = 1
+	width = 1
+	height = 1
 
-# terminate program
-pyrosim.End()
-
+	# generate torso
+	pyrosim.Send_Cube(name = "Torso", pos = [1.5, 0, 1.5], size = [width, length, height])
+	
+	# create torso-front leg joint
+	pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2, 0, 1])
+	
+	# generate front leg
+	pyrosim.Send_Cube(name = "FrontLeg", pos = [.5, 0, -.5], size = [width, length, height])
+	
+	# create joint between torso-back leg
+	pyrosim.Send_Joint(name = "Torso_BackLeg", parent = "Torso", child = "BackLeg", type = "revolute", position = [1, 0, 1])
+	
+	# add back leg
+	pyrosim.Send_Cube(name = "BackLeg", pos = [-.5, 0, -.5], size = [width, length, height])
+	
+	# terminate urdf creation
+	pyrosim.End()
+	
+	
+main()
