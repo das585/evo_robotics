@@ -28,7 +28,7 @@ p.loadSDF("boxes.sdf")
 for x in range(1000):
     p.stepSimulation()
     print(x)
-    time.sleep(.008)
+    time.sleep(.01)
 
 # physics engine disconnect
 p.disconnect
