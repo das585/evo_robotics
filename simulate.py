@@ -7,6 +7,7 @@
 # import statements
 import pybullet as p
 import pybullet_data
+import pyrosim.pyrosim as pyrosim
 import time
 
 # physics engine init
@@ -27,10 +28,14 @@ robotID = p.loadURDF("body.urdf")
 # load in the box
 p.loadSDF("world.sdf")
 
+# prepare to use sensor values
+pyrosim.Prepare_To_Simulate(robotID)
+
 # step through the world
 for x in range(1000):
     p.stepSimulation()
-    print(x)
+    backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    print(backLegTouch)
     time.sleep(.01)
 
 # physics engine disconnect
