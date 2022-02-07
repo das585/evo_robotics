@@ -26,7 +26,7 @@ planeID = p.loadURDF("plane.urdf")
 # load the robot
 robotID = p.loadURDF("body.urdf")
 
-# load in the box
+# load in the world
 p.loadSDF("world.sdf")
 
 # prepare to use sensor values
@@ -34,6 +34,7 @@ pyrosim.Prepare_To_Simulate(robotID)
 
 # numpy vector for storing sensor values
 backLegSensorValues = np.zeros(1000)
+frontLegSensorValues = np.zeros(1000)
 
 # step through the world
 for x in range(1000):
@@ -41,15 +42,17 @@ for x in range(1000):
 	# step simulation
     p.stepSimulation()
     
-    # get touch value of back leg and add to vector
+    # get touch value of legs and add to vector
     backLegSensorValues[x] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    frontLegSensorValues[x] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
      
     # print the step number and wait 
     print(x)
     time.sleep(.01)
     
-#  save the vector
-np.save("data/sensors.npy", backLegSensorValues, allow_pickle=True, fix_imports=True)
+#  save the vectors
+np.save("data/BackLegSensors.npy", backLegSensorValues, allow_pickle=True, fix_imports=True)
+np.save("data/FrontLegSensors.npy", frontLegSensorValues, allow_pickle=True, fix_imports=True)
 
 # physics engine disconnect
 p.disconnect
