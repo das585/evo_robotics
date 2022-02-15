@@ -10,6 +10,13 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import time
+import random
+
+# motor movement variables
+amplitude = np.pi/4
+frequency = 20
+FLphaseOffset = 0
+BLphaseOffset = np.pi/4
 
 # physics engine init
 physicsClient = p.connect(p.GUI)
@@ -18,7 +25,7 @@ physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 # set the gravity in the world
-p.setGravity(0, 0,-9.8)
+p.setGravity(0, 0,-9.81)
 
 # create the floor
 planeID = p.loadURDF("plane.urdf")
@@ -33,8 +40,11 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotID)
 
 # numpy vector for storing sensor values
-backLegSensorValues = np.zeros(1000)
-frontLegSensorValues = np.zeros(1000)
+backLegMotorValues = np.zeros(1000)
+frontLegMotorValues = np.zeros(1000)
+
+# create a vector of desired motor values
+targetAngles = np.linspace(-1, 1, 1000)
 
 # step through the world
 for x in range(1000):
@@ -42,17 +52,32 @@ for x in range(1000):
 	# step simulation
     p.stepSimulation()
     
+    # simulate motors
+    pyrosim.Set_Motor_For_Joint(
+		bodyIndex = robotID,
+		jointName = "Torso_BackLeg",
+		controlMode = p.POSITION_CONTROL,
+		targetPosition = amplitude * np.sin(frequency * targetAngles[x] + BLphaseOffset),
+		maxForce = 500)
+
+    pyrosim.Set_Motor_For_Joint(
+        bodyIndex = robotID,
+        jointName = "Torso_FrontLeg",
+        controlMode = p.POSITION_CONTROL,
+        targetPosition = amplitude * np.sin(frequency * targetAngles[x] + FLphaseOffset),
+        maxForce = 500)
+    
     # get touch value of legs and add to vector
-    backLegSensorValues[x] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-    frontLegSensorValues[x] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
+    backLegMotorValues[x] = amplitude * np.sin(frequency * targetAngles[x] + BLphaseOffset)
+    frontLegMotorValues[x] = amplitude * np.sin(frequency * targetAngles[x] + FLphaseOffset)
      
     # print the step number and wait 
     print(x)
-    time.sleep(.01)
+    time.sleep(.004167)
     
 #  save the vectors
-np.save("data/BackLegSensors.npy", backLegSensorValues, allow_pickle=True, fix_imports=True)
-np.save("data/FrontLegSensors.npy", frontLegSensorValues, allow_pickle=True, fix_imports=True)
+np.save("data/BackLegMotors.npy", backLegMotorValues, allow_pickle=True, fix_imports=True)
+np.save("data/FrontLegMotors.npy", frontLegMotorValues, allow_pickle=True, fix_imports=True)
 
 # physics engine disconnect
 p.disconnect

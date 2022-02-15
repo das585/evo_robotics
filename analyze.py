@@ -9,12 +9,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # load in the file for use in a plot
-backLegSensorValues = np.load("data/BackLegSensors.npy", mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')
-frontLegSensorValues = np.load("data/FrontLegSensors.npy", mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')
+backLegMotorValues = np.load("data/BackLegMotors.npy", mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')
+frontLegMotorValues = np.load("data/FrontLegMotors.npy", mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')
 
 # plot the values
-plt.plot(backLegSensorValues, label = "back leg", linewidth=.4)
-plt.plot(frontLegSensorValues, label = "front leg", linewidth=1)
+plt.plot(backLegMotorValues, label = "back leg", linewidth=.4)
+plt.plot(frontLegMotorValues, label = "front leg", linewidth=1)
 
 # show a legend
 plt.legend()
