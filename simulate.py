@@ -14,7 +14,7 @@ import random
 
 # motor movement variables
 amplitude = np.pi/4
-frequency = 20
+frequency = 200
 FLphaseOffset = 0
 BLphaseOffset = np.pi/4
 
@@ -40,14 +40,14 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotID)
 
 # numpy vector for storing sensor values
-backLegMotorValues = np.zeros(1000)
-frontLegMotorValues = np.zeros(1000)
+backLegMotorValues = np.zeros(10000)
+frontLegMotorValues = np.zeros(10000)
 
 # create a vector of desired motor values
-targetAngles = np.linspace(-1, 1, 1000)
+targetAngles = np.linspace(-1, 1, 10000)
 
 # step through the world
-for x in range(1000):
+for x in range(10000):
 	
 	# step simulation
     p.stepSimulation()
