@@ -27,8 +27,8 @@ class SENSOR:
         self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
         
         # print the vector if it is the last iteration
-        if(t == c.simSteps - 1):
-            print(self.values)
+        #if(t == c.simSteps - 1):
+        #    print(self.values)
 
     # create function to save the values
     def Save_Values(self):

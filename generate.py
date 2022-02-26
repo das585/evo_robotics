@@ -9,8 +9,9 @@ import pyrosim.pyrosim as pyrosim
 
 # main calls to other functions
 def main():
-	Create_World()
-	Create_Robot()
+    Create_World()
+    Create_Robot_Body()
+    Create_Robot_Brain()
 
 # creates the world sdf for use in simulate.py
 def Create_World():
@@ -21,8 +22,8 @@ def Create_World():
 	# terminate the creation
 	pyrosim.End()
 
-# creates the body and mind of the robot	
-def Create_Robot():
+# creates the body of the robot	
+def Create_Robot_Body():
 	
 	# start urdf creation
 	pyrosim.Start_URDF("body.urdf")
@@ -50,5 +51,28 @@ def Create_Robot():
 	# terminate urdf creation
 	pyrosim.End()
 	
+# creates the mind of the robot	
+def Create_Robot_Brain():
+
+    # start nndf creation
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    
+    # create a neuron for the torso sensor
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+    
+    # create neuron for back leg sensor
+    pyrosim.Send_Sensor_Neuron(name = 1, linkName = "BackLeg")
+    
+    # create neuron for front leg sensor
+    pyrosim.Send_Sensor_Neuron(name = 2, linkName = "FrontLeg")
+    
+    # create a motor neuron for the back leg joint
+    pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
+
+    # create a motor neuron for the back leg joint
+    pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
+    
+    # terminate urdf creation
+    pyrosim.End()
 	
 main()

@@ -63,19 +63,11 @@ class SIMULATION:
             # get the sensor input
             self.robot.Sense(x)
             
+            # make the robot think before it acts
+            self.robot.Think()
+            
             # give motor output
             self.robot.Act(x, self.robotID)
-
-            #pyrosim.Set_Motor_For_Joint(
-             #   bodyIndex = robotID,
-              #  jointName = "Torso_FrontLeg",
-               # controlMode = p.POSITION_CONTROL,
-                #targetPosition = c.amplitude * np.sin(c.frequency * targetAngles[x] + c.FLphaseOffset),
-                #maxForce = c.motorForce)
-            
-            # get motor value of legs and add to vector
-            
-            #frontLegMotorValues[x] = c.amplitude * np.sin(c.frequency * targetAngles[x] + c.FLphaseOffset)
              
             # print the step number and wait 
             #print(x)

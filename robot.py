@@ -8,6 +8,7 @@ in the simulated world
 
 # import statements
 from motor import MOTOR
+from pyrosim.neuralNetwork import NEURAL_NETWORK
 import pyrosim.pyrosim as pyrosim
 from sensor import SENSOR
 
@@ -16,9 +17,10 @@ class ROBOT:
     
     # constructor
     def __init__(self):
-        # empty, do nothing
-        pass
-        
+        # create neural net from nndf
+        self.nn = NEURAL_NETWORK("brain.nndf")
+
+    
     # method to set up the sensors in the robot
     def Prepare_To_Sense(self):
         
@@ -49,9 +51,30 @@ class ROBOT:
     # method to cause the motors to act
     def Act(self, t, robotID):
         
-        # loop through all motors and make them act
-        for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName].Set_Value(t, robotID)
+        # loop through all neurons, get angle value, and set angle
+        for neuronName in self.nn.Get_Neuron_Names():
+            
+            # move only if a motor neuron
+            if self.nn.Is_Motor_Neuron(neuronName):
+                
+                # get the value for the angle of the motor
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                
+                # get the joint name
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                
+                # cause the motors to move
+                self.motors[jointName].Set_Value(desiredAngle, robotID)
+            
+            
+    # method to let the robot think and make decisions
+    def Think(self):
+        
+        # update the neural net values
+        self.nn.Update()
+        
+        # print the neural net values
+        self.nn.Print()
             
     # method to save the vectors
     def Save_All(self):
@@ -59,9 +82,5 @@ class ROBOT:
         # save all sensor values
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName].Save_Values()
-            
-        # save all motor values
-        for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName].Save_Values()
             
         
