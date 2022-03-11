@@ -6,6 +6,7 @@
 
 # import statements
 import pyrosim.pyrosim as pyrosim
+import random
 
 # main calls to other functions
 def main():
@@ -71,14 +72,11 @@ def Create_Robot_Brain():
 
     # create a motor neuron for the back leg joint
     pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
-    
-    # create synapses for backleg
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = 1.0 )
-    pyrosim.Send_Synapse(sourceNeuronName = 1, targetNeuronName = 3, weight = 1.0)
-    
-    # create synapses for frontleg
-    pyrosim.Send_Synapse(sourceNeuronName = 0, targetNeuronName = 4, weight = 1.0)
-    pyrosim.Send_Synapse(sourceNeuronName = 2, targetNeuronName = 4, weight = 1.0)
+
+    # for loop to connect all neurons
+    for sensor in range(3):
+        for motor in range(3, 5):
+            pyrosim.Send_Synapse(sourceNeuronName = sensor, targetNeuronName = motor, weight = random.triangular(-1.0, 1.0))
     
     # terminate urdf creation
     pyrosim.End()
