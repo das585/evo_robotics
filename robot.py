@@ -8,6 +8,8 @@ in the simulated world
 
 # import statements
 from motor import MOTOR
+import pybullet as p
+import pybullet_data
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import pyrosim.pyrosim as pyrosim
 from sensor import SENSOR
@@ -16,7 +18,11 @@ from sensor import SENSOR
 class ROBOT:
     
     # constructor
-    def __init__(self):
+    def __init__(self, ID):
+
+        # create the robots value
+        self.robot = ID
+        
         # create neural net from nndf
         self.nn = NEURAL_NETWORK("brain.nndf")
 
@@ -74,7 +80,21 @@ class ROBOT:
         self.nn.Update()
         
         # print the neural net values
-        self.nn.Print()
+        #self.nn.Print()
+
+    # function to get the robot's fitness score
+    def Get_Fitness(self):
+
+        # get the state of link 0 to analyze position
+        stateOfLinkZero = p.getLinkState(self.robot, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+
+        # open a file to write the x coordinate to
+        fitnessFile = open("fitness.txt", 'w')
+        fitnessFile.write(str(xCoordinateOfLinkZero))
+        fitnessFile.close()
+
             
     # method to save the vectors
     def Save_All(self):
@@ -82,5 +102,4 @@ class ROBOT:
         # save all sensor values
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName].Save_Values()
-            
-        
+

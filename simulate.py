@@ -12,14 +12,17 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import random
 from simulation import SIMULATION
+import sys
 import time
+
+directOrGUI = sys.argv[1]
 
 
 # create simulation object
-simulation = SIMULATION()
+simulation = SIMULATION(directOrGUI)
 
 # run the simulation
 simulation.Run()
 
-
+simulation.Get_Fitness()
 

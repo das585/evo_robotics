@@ -17,10 +17,13 @@ BLphaseOffset = np.pi/4
 motorForce = 500
 
 # number of steps in the simulation
-simSteps = 10000
+simSteps = 5000
 
 # sleep length in the simulation
 sleepTime = .004167
 
 # gravity constant
 gravConst = -9.81
+
+# number of generations to evolve
+numberOfGenerations = 25
