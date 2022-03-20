@@ -17,7 +17,7 @@ BLphaseOffset = np.pi/4
 motorForce = 500
 
 # number of steps in the simulation
-simSteps = 5000
+simSteps = 2500
 
 # sleep length in the simulation
 sleepTime = .004167

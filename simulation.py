@@ -23,9 +23,12 @@ class SIMULATION:
         
         # add the world and robot into the simulation
         self.world = WORLD()
+
+        # add direct or gui as a field
+        self.directOrGUI = directOrGUI
         
         # physics engine init
-        if(directOrGUI == 'GUI'):
+        if(self.directOrGUI == 'GUI'):
             self.physicsClient = p.connect(p.GUI)
 
         else:
@@ -76,9 +79,9 @@ class SIMULATION:
             # give motor output
             self.robot.Act(x, self.robotID)
              
-            # print the step number and wait 
-            #print(x)
-            time.sleep(c.sleepTime)
+            # wait if using a gui, otherwise skip
+            if(self.directOrGUI == "GUI"):
+                time.sleep(c.sleepTime)
 
     # method to get the fitness score for the run
     def Get_Fitness(self):
