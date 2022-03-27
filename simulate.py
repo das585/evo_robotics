@@ -15,11 +15,14 @@ from simulation import SIMULATION
 import sys
 import time
 
+# store the GUI/noGUI options
 directOrGUI = sys.argv[1]
 
+# store the brain/fitness file ID to use
+solutionID = sys.argv[2]
 
 # create simulation object
-simulation = SIMULATION(directOrGUI)
+simulation = SIMULATION(directOrGUI, solutionID)
 
 # run the simulation
 simulation.Run()

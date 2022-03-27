@@ -19,7 +19,7 @@ from world import WORLD
 class SIMULATION:
     
     # constructor
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, fileID):
         
         # add the world and robot into the simulation
         self.world = WORLD()
@@ -42,7 +42,7 @@ class SIMULATION:
         self.robotID = p.loadURDF("body.urdf")
 
         # create the robot
-        self.robot = ROBOT(self.robotID)
+        self.robot = ROBOT(self.robotID, fileID)
 
         # set the gravity in the world
         p.setGravity(0, 0, c.gravConst)

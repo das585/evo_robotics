@@ -7,7 +7,9 @@ in the simulated world
 '''
 
 # import statements
+import constants as c
 from motor import MOTOR
+import os
 import pybullet as p
 import pybullet_data
 from pyrosim.neuralNetwork import NEURAL_NETWORK
@@ -18,13 +20,19 @@ from sensor import SENSOR
 class ROBOT:
     
     # constructor
-    def __init__(self, ID):
+    def __init__(self, ID, fileID):
 
         # create the robots value
         self.robot = ID
+
+        # id for file IO
+        self.fileID = fileID
         
-        # create neural net from nndf
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        # create neural net from nndf with given id
+        self.nn = NEURAL_NETWORK("brain" + str(self.fileID) +".nndf")
+
+        # delete the nndf after
+        os.system("rm brain" + str(fileID) + ".nndf")
 
     
     # method to set up the sensors in the robot
@@ -64,7 +72,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 
                 # get the value for the angle of the motor
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                desiredAngle = c.motorJointRange * self.nn.Get_Value_Of(neuronName)
                 
                 # get the joint name
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
@@ -91,9 +99,13 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0]
 
         # open a file to write the x coordinate to
-        fitnessFile = open("fitness.txt", 'w')
+        fitnessFile = open("tmp" + str(self.fileID) + ".txt", 'w')
         fitnessFile.write(str(xCoordinateOfLinkZero))
         fitnessFile.close()
+
+        # move the temp file to fitness file to prevent reading before file
+        # is written to
+        os.system('mv tmp' + str(self.fileID) + '.txt fitness' + str(self.fileID) + '.txt')
 
             
     # method to save the vectors

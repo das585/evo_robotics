@@ -5,17 +5,17 @@ to find ideal synapse weights to make the robot walk
 '''
 
 # import statements
-from hillclimber import HILL_CLIMBER
+from parallelHillclimber import PARALLEL_HILL_CLIMBER
 import os
 
 # create a hill climber instance
-hc = HILL_CLIMBER()
+phc = PARALLEL_HILL_CLIMBER()
 
 # carry out the evolution process
-hc.Evolve()
+phc.Evolve()
 
 # show the best performer
-hc.Show_Best()
+phc.Show_Best()
 
 
 
