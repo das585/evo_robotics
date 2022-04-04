@@ -26,10 +26,10 @@ sleepTime = .00833
 gravConst = -9.81
 
 # number of generations to evolve
-numberOfGenerations = 20
+numberOfGenerations = 15
 
 # number of robots to evolve in parallel
-populationSize = 20 
+populationSize = 20
 
 # neural net constants
 numSensorNeurons = 9
