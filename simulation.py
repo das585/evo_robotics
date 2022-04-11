@@ -88,6 +88,11 @@ class SIMULATION:
 
         # call robot's fitness function
         self.robot.Get_Fitness()
+
+    def Write_Fitness(self):
+
+        # call the robot's write fitness function
+        self.robot.Write_Fitness()
     
         
     # create destructor

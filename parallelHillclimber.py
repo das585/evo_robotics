@@ -83,7 +83,7 @@ class PARALLEL_HILL_CLIMBER:
     def Select(self):
         # if the child is better than the parent, it can have children. It dies otherwise
         for i in range(c.populationSize):
-            if(self.parents[i].Get_Fitness() > self.children[i].Get_Fitness()):
+            if(self.parents[i].Get_Fitness() < self.children[i].Get_Fitness()):
                 self.parents[i] = self.children[i]
 
     # print out the parent and child values to see who is selected
@@ -98,7 +98,7 @@ class PARALLEL_HILL_CLIMBER:
         
         # find the best parent
         for i in range(1, c.populationSize):
-                if(best.Get_Fitness() > self.parents[i].Get_Fitness()):
+                if(best.Get_Fitness() < self.parents[i].Get_Fitness()):
                     best = self.parents[i]
                     
         # call evaluate to show the parent with the GUI turned on

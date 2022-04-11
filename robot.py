@@ -34,6 +34,9 @@ class ROBOT:
         # delete the nndf after
         os.system("rm brain" + str(fileID) + ".nndf")
 
+        # initialize z coord value
+        self.zCoordinateOfLinkZero = 0
+
     
     # method to set up the sensors in the robot
     def Prepare_To_Sense(self):
@@ -93,21 +96,32 @@ class ROBOT:
     # function to get the robot's fitness score
     def Get_Fitness(self):
 
-        # get the state of link 0 to analyze position
+        self.heightSum = 0
+        
+        # get the state of each leg to ensure they are all raised up
+        for link in range(1, 8):
+            stateOfLink = p.getLinkState(self.robot, link)
+            positionOfLink = stateOfLink[0]
+            self.heightSum += positionOfLink[2]
+
+        # penalize for the body link not being on the ground
         stateOfLinkZero = p.getLinkState(self.robot, 0)
         positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
 
-        # open a file to write the x coordinate to
+        penalty = positionOfLinkZero[2] * -15
+
+        self.heightSum += penalty
+
+    def Write_Fitness(self):
+         
+        # open a file to write the z coordinate to
         fitnessFile = open("tmp" + str(self.fileID) + ".txt", 'w')
-        fitnessFile.write(str(xCoordinateOfLinkZero))
+        fitnessFile.write(str(self.heightSum))
         fitnessFile.close()
 
         # move the temp file to fitness file to prevent reading before file
         # is written to
-        os.system('mv tmp' + str(self.fileID) + '.txt fitness' + str(self.fileID) + '.txt')
-
-            
+        os.system('mv tmp' + str(self.fileID) + '.txt fitness' + str(self.fileID) + '.txt')   
     # method to save the vectors
     def Save_All(self):
         

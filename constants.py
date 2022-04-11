@@ -17,7 +17,7 @@ BLphaseOffset = np.pi/4
 motorForce = 500
 
 # number of steps in the simulation
-simSteps = 2000
+simSteps = 1800
 
 # sleep length in the simulation
 sleepTime = .00833
@@ -29,11 +29,11 @@ gravConst = -9.81
 numberOfGenerations = 15
 
 # number of robots to evolve in parallel
-populationSize = 20
+populationSize = 30
 
 # neural net constants
 numSensorNeurons = 9
 numMotorNeurons = 8
 
 # bias for the motor movement
-motorJointRange = .2
+motorJointRange = .8

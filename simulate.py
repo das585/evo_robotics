@@ -29,3 +29,5 @@ simulation.Run()
 
 simulation.Get_Fitness()
 
+simulation.Write_Fitness()
+
