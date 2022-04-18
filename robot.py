@@ -108,7 +108,7 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robot, 0)
         positionOfLinkZero = stateOfLinkZero[0]
 
-        penalty = positionOfLinkZero[2] * -15
+        penalty = positionOfLinkZero[2] * -10
 
         self.heightSum += penalty
 

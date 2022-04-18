@@ -88,16 +88,16 @@ class SOLUTION:
         pyrosim.Send_Cube(name = "RightLeg", pos = [.5, 0, 0], size = [1, .2, .2])
 
         # create lower legs
-        pyrosim.Send_Joint(name = "FrontLeg_LowerFront", parent = "FrontLeg", child = "LowerFront", type = "revolute", position = [0, 1, 0], jointAxis = "0 -1 0")
+        pyrosim.Send_Joint(name = "FrontLeg_LowerFront", parent = "FrontLeg", child = "LowerFront", type = "revolute", position = [0, 1, 0], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name = "LowerFront", pos = [0, 0, -.5], size = [.2, .2, 1])
 
-        pyrosim.Send_Joint(name = "BackLeg_LowerBack", parent = "BackLeg", child = "LowerBack", type = "revolute", position = [0, -1, 0], jointAxis = "0 -1 0")
+        pyrosim.Send_Joint(name = "BackLeg_LowerBack", parent = "BackLeg", child = "LowerBack", type = "revolute", position = [0, -1, 0], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name = "LowerBack", pos = [0, 0, -.5], size = [.2, .2, 1])
 
-        pyrosim.Send_Joint(name = "LeftLeg_LowerLeft", parent = "LeftLeg", child = "LowerLeft", type = "revolute", position = [-1, 0, 0], jointAxis = "0 -1 0")
+        pyrosim.Send_Joint(name = "LeftLeg_LowerLeft", parent = "LeftLeg", child = "LowerLeft", type = "revolute", position = [-1, 0, 0], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name = "LowerLeft", pos = [0, 0, -.5], size = [.2, .2, 1])
 
-        pyrosim.Send_Joint(name = "RightLeg_LowerRight", parent = "RightLeg", child = "LowerRight", type = "revolute", position = [1, 0, 0], jointAxis = "0 -1 0")
+        pyrosim.Send_Joint(name = "RightLeg_LowerRight", parent = "RightLeg", child = "LowerRight", type = "revolute", position = [1, 0, 0], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name = "LowerRight", pos = [0, 0, -.5], size = [.2, .2, 1])
         
         # terminate urdf creation
