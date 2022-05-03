@@ -8,21 +8,17 @@ to find ideal synapse weights to make the robot walk
 from parallelHillclimber import PARALLEL_HILL_CLIMBER
 import os
 
-# create a hill climber instance
-phc = PARALLEL_HILL_CLIMBER()
+# repeat the search 10 times so that an average can be taken from collected data
+### SHOW BEST HAS BEEN MODIFIED TO BE DIRECT NOT GUI. CHANGE BACK IF DESIRED
+for x in range(50):
+    # create a hill climber instance
+    phc = PARALLEL_HILL_CLIMBER()
 
-# carry out the evolution process
-phc.Evolve()
+    # carry out the evolution process
+    phc.Evolve()
 
-# show the best performer
-phc.Show_Best()
+    # show the best performer
+    phc.Show_Best()
 
 
 
-# for loop to call the following functions twice
-#for i in range(2):
-    # call generate before simulating
-    #os.system("python3 generate.py")
-
-    # call simulation
-    #os.system("python3 simulate.py")

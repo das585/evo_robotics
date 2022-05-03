@@ -173,3 +173,20 @@ class SOLUTION:
     # method to set the robot's id
     def Set_ID(self, ID):
         self.myID = ID
+
+    # method to write the data of the simulation to a file
+    def Write_Data(self):
+        # open the file to write
+        outfile = open("long_legs.csv", "a")
+
+        # string to format and write
+        temp = "{},{},{},{},{},{},{},{},{},{}\n"
+
+        # write and close
+        outs = temp.format(c.numberOfGenerations, self.fitness, self.legs[0][0], self.legs[0][1], self.legs[1][0], self.legs[1][1], self.legs[2][0], self.legs[2][1], self.legs[3][0], self.legs[3][1])
+
+        #print(outs)
+        
+        outfile.write(outs)
+
+        outfile.close()
