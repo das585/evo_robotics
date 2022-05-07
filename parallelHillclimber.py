@@ -102,5 +102,8 @@ class PARALLEL_HILL_CLIMBER:
                     best = self.parents[i]
                     
         # call evaluate to show the parent with the GUI turned on
-        best.Start_Simulation('GUI')
+        best.Start_Simulation('DIRECT')
+
+        # write data to file
+        best.Write_Data()
         
