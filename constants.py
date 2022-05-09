@@ -26,7 +26,7 @@ sleepTime = .00833
 gravConst = -9.81
 
 # number of generations to evolve
-numberOfGenerations = 100
+numberOfGenerations = 25
 
 # number of robots to evolve in parallel
 populationSize = 25
